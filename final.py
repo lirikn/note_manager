@@ -1,20 +1,21 @@
 from datetime import datetime
 
-note = ["Имя пользователя", "Содержание заметки", "Статус", "Дата создания", "Дата изменения", ["Заголовок 1", "Заголовок 2", "Заголовок 3"]]
-note[0] = input('Введите имя пользователя - ')
-note[5][0] = input('Введите первый заголовок заметки - ')
-note[5][1] = input('Введите второй заголовок заметки - ')
-note[5][2] = input('Введите третий заголовок заметки - ')
-note[1] = input('Введите описание заметки - ')
-note[2] = input('Введите статус заметки - ')
-note[3] = datetime.strptime(input('Введите дату создания заметки (дд-мм-гггг) - '), "%d-%m-%Y")
-note[4] = datetime.strptime(input('Введите дату истечения заметки (дд-мм-гггг) - '), "%d-%m-%Y")
+note = {}
+note['name'] = input('Введите имя пользователя - ')
+note['title'] = []
+note['title'].append(input('Введите первый заголовок заметки - '))
+note['title'].append(input('Введите второй заголовок заметки - '))
+note['title'].append(input('Введите третий заголовок заметки - '))
+note['content'] = input('Введите описание заметки - ')
+note['status'] = input('Введите статус заметки - ')
+note['created_date'] = datetime.strptime(input('Введите дату создания заметки (дд-мм-гггг) - '), "%d-%m-%Y")
+note['issue_date'] = datetime.strptime(input('Введите дату истечения заметки (дд-мм-гггг) - '), "%d-%m-%Y")
 
-print('Имя пользователя:', note[0])
-print('Заголовоки заметки:', note[5])
-print('Описание заметки:', note[1])
-print('Статус заметки:', note[2])
-print('Дата создания заметки:', note[3].strftime("%d-%m"))
-print('Дата истечения заметки:', note[4].strftime("%d-%m"))
+print('Имя пользователя:', note['name'])
+print('Заголовоки заметки:', note['title'][0], note['title'][1], note['title'][2])
+print('Описание заметки:', note['content'])
+print('Статус заметки:', note['status'])
+print('Дата создания заметки:', note['created_date'].strftime("%d-%m"))
+print('Дата истечения заметки:', note['issue_date'].strftime("%d-%m"))
 
 print(note)
