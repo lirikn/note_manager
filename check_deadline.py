@@ -1,3 +1,4 @@
+# Проверка истечения срока выполнения задачи.
 from datetime import datetime
 
 now = datetime.now()

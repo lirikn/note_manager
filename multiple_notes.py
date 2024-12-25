@@ -1,3 +1,4 @@
+# Позволяет создавать несколько заметок, каждая из которых хранится в виде словаря.
 from datetime import datetime
 
 def input_check(text):
