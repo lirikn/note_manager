@@ -13,7 +13,7 @@ def input_status(stats):
         status = input(f'Введите статус заметки {stats}: ')
         if status in stats:
             return status
-        print('Неправельный статус -', status)
+        print('Неправильный статус -', status)
 
 def input_date(name):
     while True:
