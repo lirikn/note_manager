@@ -1,7 +1,7 @@
 # Позволяет пользователю вносить изменения в уже созданные заметки, сохраняя их актуальность.
 from datetime import datetime
 
-# Функция позволяет вводить несколько полей для изменения
+# Функция позволяет вводить несколько полей для изменения, возвращает список.
 def input_check():
     keys = ('username', 'title', 'content', 'status', 'issue_date')
     input_keys = input(f"Какие данные вы хотите обновить? ({', '.join(keys)}): ").split(', ')
@@ -26,6 +26,7 @@ def update_note(note_):
         input_keys = input_check()
     for key in input_keys:
         new = input(f'Введите новое значение для {key}: ')
+        # Пустой ввод не меняет содержимого поля
         if new != '':
             if key == 'issue_date':
                 while not date_check(new):
