@@ -28,3 +28,5 @@ update_note_function.py - Позволяет пользователю вноси
 
 display_notes_function.py - Функция отображения заметок.
 
+search_notes_function.py - Функция поиска заметок.
+
