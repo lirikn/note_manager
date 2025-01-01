@@ -14,7 +14,7 @@ def select_note(notes, text):
             print("Неверный номер заметки.")
     else:
         print("Список заметок пуст.")
-    return None
+    return
 
 def menu(notes):
     while True:

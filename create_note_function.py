@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 def input_check(text):
     while True:
         ret = input(f'Введите {text}: ')
-        if ret != '':
+        if ret:
             return ret
         print('Ввод не может быть пустым')
 
@@ -19,7 +19,7 @@ def input_date(days):
     default = datetime.now() + timedelta(days=days)
     while True:
         date = input(f'Введите дату дедлайна (по умолчанию {default.strftime("%d-%m-%Y")}):')
-        if date == '':
+        if not date:
             return default
         try:
             date = datetime.strptime(date, '%d-%m-%Y')
@@ -48,7 +48,7 @@ if __name__ == "__main__":
         notes.append(note)
 
         ask = None
-        while ask not in ['да', 'нет']:
+        while ask not in ('да', 'нет'):
             ask = input('Хотите добавить ещё одну заметку? (да/нет): ')
         if ask == 'нет':
             break

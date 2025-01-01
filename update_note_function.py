@@ -26,7 +26,7 @@ def update_note(note):
     for key in input_keys:
         new = input(f'Введите новое значение для {key}: ')
         # Пустой ввод не меняет содержимого поля
-        if new != '':
+        if new:
             if key == 'issue_date':
                 while not date_check(new):
                     new = input(f'неправильный формат даты {new}, введите заново дд-мм-гггг: ')

@@ -2,12 +2,12 @@
 
 def search_notes(notes, keyword='', status=''):
     ret_notes = []
-    if keyword != '':
+    if keyword:
         for note in notes:
             if [x for x in ('username', 'title', 'content') if keyword.lower() in note[x].lower()]:
                 ret_notes.append(note)
         notes = ret_notes
-    if status != '':
+    if status:
         ret_notes = []
         for note in notes:
             if status == note['status']:

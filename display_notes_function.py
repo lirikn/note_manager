@@ -20,7 +20,7 @@ def display_notes(notes):
         print('Дедлайн:', note['issue_date'])
         print('------------------------')
 # вывод 5 заметок на станице
-        if num % 5 == 0:
+        if not num % 5:
             input('Ввод для продолжения')
 
 if __name__ == "__main__":
@@ -64,5 +64,5 @@ if __name__ == "__main__":
     display_notes(notes_)
 
     input('Ввод для продолжения')
-    # большой масив данных
+    # большой массив данных
     display_notes(notes_*4)
