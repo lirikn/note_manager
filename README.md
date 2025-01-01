@@ -32,3 +32,4 @@ search_notes_function.py - Функция поиска заметок.
 
 menu.py - Меню для работы с заметками.
 
+save_to_file_function.py - Функция записи заметок в файл
