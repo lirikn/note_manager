@@ -30,35 +30,35 @@ def input_date(days):
             return date
         print('Дедлайн истек! Введите другую дату.')
 
-def note_function(notes_):
+def create_note():
+    return {
+        'username': input_check('имя пользователя'),
+        'title': input_check('заголовок заметки'),
+        'content': input_check('описание заметки'),
+        'status': input_status(('новая', 'в процессе', 'выполнено')),
+        'created_date': datetime.now().strftime('%d-%m-%Y'),
+        'issue_date': input_date(7).strftime('%d-%m-%Y')
+    }
+
+if __name__ == "__main__":
+    notes = []
     print('Добро пожаловать в "Менеджер заметок"! Вы можете добавить новую заметку.')
     while True:
-        note_ = {
-            'name': input_check('имя пользователя'),
-            'title': input_check('заголовок заметки'),
-            'content': input_check('описание заметки'),
-            'status': input_status(('новая', 'в процессе', 'выполнено')),
-            'created_date': datetime.now(),
-            'issue_date': input_date(7)
-        }
-        notes_.append(note_)
+        note = create_note()
+        notes.append(note)
 
         ask = None
         while ask not in ['да', 'нет']:
             ask = input('Хотите добавить ещё одну заметку? (да/нет): ')
         if ask == 'нет':
             break
-    return notes
 
-notes = []
-notes = note_function(notes)
-
-print('Список заметок: ')
-for note in notes:
-    print('\n\t\tЗаметка №', notes.index(note) + 1)
-    print('Имя:', note['name'])
-    print('Заголовок:', note['title'])
-    print('Описание:', note['content'])
-    print('Статус:', note['status'])
-    print('Дата создания:', note['created_date'].strftime('%d-%m-%Y'))
-    print('Дедлайн:', note['issue_date'].strftime('%d-%m-%Y'))
+    print('Список заметок: ')
+    for note in notes:
+        print('\n\t\tЗаметка №', notes.index(note) + 1)
+        print('Имя:', note['username'])
+        print('Заголовок:', note['title'])
+        print('Описание:', note['content'])
+        print('Статус:', note['status'])
+        print('Дата создания:', note['created_date'])
+        print('Дедлайн:', note['issue_date'])

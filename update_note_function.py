@@ -18,9 +18,8 @@ def date_check(date):
         return False
     return True
 
-def update_note(note_):
-    print('Текущие данные заметки:')
-    print(note_)
+def update_note(note):
+    print('Текущие данные заметки:\n', note)
     input_keys = input_check()
     while input_keys is None:
         input_keys = input_check()
@@ -31,15 +30,15 @@ def update_note(note_):
             if key == 'issue_date':
                 while not date_check(new):
                     new = input(f'неправильный формат даты {new}, введите заново дд-мм-гггг: ')
-            note_[key] = new
-    print('Заметка обновлена:')
-    print(note_)
-    return note_
+            note[key] = new
+    print('Заметка обновлена:\n', note)
+    return note
 
-note = {'username': 'Алексей',
+if __name__ == "__main__":
+    note_ = {'username': 'Алексей',
         'title': 'Список покупок',
         'content': 'Купить продукты на неделю',
         'status': 'новая',
         'created_date': '27-11-2024',
         'issue_date': '30-11-2024'}
-note = update_note(note)
+    note_ = update_note(note_)
