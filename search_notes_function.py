@@ -1,13 +1,13 @@
 # Функция поиска заметок
 
-def search_notes(notes, keyword=None, status=None):
+def search_notes(notes, keyword='', status=''):
     ret_notes = []
-    if keyword is not None and keyword != '':
+    if keyword != '':
         for note in notes:
             if [x for x in ('username', 'title', 'content') if keyword.lower() in note[x].lower()]:
                 ret_notes.append(note)
         notes = ret_notes
-    if status is not None and status != '':
+    if status != '':
         ret_notes = []
         for note in notes:
             if status == note['status']:

@@ -7,9 +7,9 @@ from search_notes_function import search_notes
 def select_note(notes, text):
     if notes:
         display_notes(notes)
-        i = int(input(f'Введите номер заметки для {text}: ')) - 1
-        if 0 <= i < len(notes):
-            return i
+        index = int(input(f'Введите номер заметки для {text}: ')) - 1
+        if 0 <= index < len(notes):
+            return index
         else:
             print("Неверный номер заметки.")
     else:
