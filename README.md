@@ -30,3 +30,5 @@ display_notes_function.py - Функция отображения заметок
 
 search_notes_function.py - Функция поиска заметок.
 
+menu.py - Меню для работы с заметками.
+
