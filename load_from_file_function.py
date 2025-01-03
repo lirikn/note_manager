@@ -34,5 +34,4 @@ def load_notes_from_file(filename):
     return notes
 
 if __name__ == "__main__":
-    notes = load_notes_from_file('notes.txt')
-    print(notes)
+    print(load_notes_from_file('notes.txt'))
