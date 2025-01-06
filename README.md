@@ -35,3 +35,7 @@ menu.py - Меню для работы с заметками.
 save_to_file_function.py - Функция записи заметок в файл.
 
 load_from_file_function.py - Функция чтения заметок из файла.
+
+append_to_file_function.py - Функция добавления новых заметок в файл.
+
+save_notes_json_function.py - Функция записи заметок в файл в формате JSON.
