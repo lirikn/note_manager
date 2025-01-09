@@ -1,20 +1,22 @@
 # Функция чтения заметок из файла.
-from save_to_file_function import save_notes_to_file, notes_
 
 def load_notes_from_file(filename):
     try:
         with open(filename, encoding='utf-8') as file:
             info = file.readlines()
     except FileNotFoundError:
-        save_notes_to_file(notes_, filename)
+        with open(filename, 'w', encoding='utf-8') as file:
+            pass
         print(f'Файл {filename} не найден. Создан новый файл.')
-        return
+        return []
     except UnicodeDecodeError:
         print(f'Ошибка при чтении файла {filename}. Проверьте его содержимое.')
         return
     except PermissionError:
         print(f'Отсутствуют права доступа к файлу {filename}')
         return
+    except Exception as e:
+        print(f"Ошибка: {e}")
 
     repl = {'Имя пользователя': 'username',
             'Заголовок': 'title',

@@ -21,4 +21,4 @@ if __name__ == "__main__":
         {'username': 'Иван', 'title': 'План работы', 'content': 'Завершить проект', 'status': 'выполнено',
          'created_date': '20-11-2024', 'issue_date': '26-11-2024'}
     ]
-append_notes_to_file(notes_, 'notes.txt')
+    append_notes_to_file(notes_, 'notes.txt')
