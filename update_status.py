@@ -11,13 +11,13 @@ while True:
     s = input()
     if s.isdigit():
         num = int(s)
-        if num > 0 and num <= len(stats):
+        if 0 < num <= len(stats):
             status = stats[num-1]
             break
     else:
         if s in stats:
             status = s
             break
-    print('Непрвильный ввод')
+    print('Неправильный ввод')
 
 print('Статус заметки успешно обновлён на:', status)
