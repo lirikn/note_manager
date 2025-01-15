@@ -1,5 +1,8 @@
 # Функции взаимодействия с пользователем.
-from datetime import datetime, timedelta
+#from datetime import datetime, timedelta
+from utils import *
+from data import save_notes_to_file, load_notes_from_file, append_notes_to_file
+
 
 # Функция отображения заметок.
 def display_notes(notes):
@@ -17,78 +20,63 @@ def display_notes(notes):
         print('Дата создания:', note['created_date'])
         print('Дедлайн:', note['issue_date'])
         print('------------------------')
-# вывод 5 заметок на станице
+     # вывод 5 заметок на станице
         if not num % 5:
             input('Ввод для продолжения')
 
 # Функция для создания новой заметки и возврата словаря.
 def create_note():
     def input_check(text):
-        while True:
-            ret = input(f'Введите {text}: ')
-            if ret:
-                return ret
+        while not (ret := input(f'Введите {text}: ')):
             print('Ввод не может быть пустым')
+        return ret
 
-    def input_status(stats):
+    def input_status():
         while True:
-            status = input(f'Введите статус заметки {stats}: ')
-            if status in stats:
+            status = input('Введите статус заметки (новая, в процессе, выполнено): ')
+            if validate_status(status):
                 return status
             print('Неправильный статус -', status)
 
     def input_date(days):
         default = datetime.now() + timedelta(days=days)
         while True:
-            date = input(f'Введите дату дедлайна (по умолчанию {default.strftime("%d-%m-%Y")}):')
-            if not date:
+            if not (date := input(f'Введите дату дедлайна (по умолчанию {default.strftime("%d-%m-%Y")}):')):
                 return default
-            try:
-                date = datetime.strptime(date, '%d-%m-%Y')
-            except:
+            if date := validate_date(date):
+                if date > datetime.now():
+                    return date
+                print('Дедлайн истек! Введите другую дату.')
+            else:
                 print('Убедитесь, что вводите дату в формате день-месяц-год, например: 10-12-2024.')
-                continue
-            if date > datetime.now():
-                return date
-            print('Дедлайн истек! Введите другую дату.')
 
     return {
         'username': input_check('имя пользователя'),
         'title': input_check('заголовок заметки'),
         'content': input_check('описание заметки'),
-        'status': input_status(('новая', 'в процессе', 'выполнено')),
+        'status': input_status(),
         'created_date': datetime.now().strftime('%d-%m-%Y'),
-        'issue_date': input_date(7).strftime('%d-%m-%Y')
+        'issue_date': input_date(7).strftime('%d-%m-%Y'),
+        'uuid': generate_unique_id()
     }
 
 # Позволяет пользователю вносить изменения в уже созданные заметки, сохраняя их актуальность.
 def update_note(note):
-    def input_check():
-        keys = ('username', 'title', 'content', 'status', 'issue_date')
+    print('Текущие данные заметки:\n', note)
+    keys = ('username', 'title', 'content', 'status', 'issue_date')
+    input_keys = ''
+    while not input_keys:
         input_keys = input(f"Какие данные вы хотите обновить? ({', '.join(keys)}): ").split(', ')
         for key in input_keys:
             if key not in keys:
                 print(f'некорректное имя поля {key}')
-                return
-        return input_keys
-
-    def date_check(date):
-        try:
-            datetime.strptime(date, "%d-%m-%Y")
-        except:
-            return False
-        return True
-
-    print('Текущие данные заметки:\n', note)
-    input_keys = input_check()
-    while input_keys is None:
-        input_keys = input_check()
+                input_keys = ''
+                break
     for key in input_keys:
-        new = input(f'Введите новое значение для {key}: ')
         # Пустой ввод не меняет содержимого поля
-        if new:
+        if new := input(f'Введите новое значение для {key}: '):
             if key == 'issue_date':
-                while not date_check(new):
+                while not validate_date(new):
                     new = input(f'неправильный формат даты {new}, введите заново дд-мм-гггг: ')
             note[key] = new
     print('Заметка обновлена:\n', note)
@@ -116,11 +104,15 @@ def select_note(notes, text):
         index = int(input(f'Введите номер заметки для {text}: ')) - 1
         if 0 <= index < len(notes):
             return index
-        else:
-            print("Неверный номер заметки.")
+        print("Неверный номер заметки.")
     else:
         print("Список заметок пуст.")
     return
+
+def input_filename():
+    if filename := input('Введите имя файла (по умолчанию - notes.txt): '):
+        return filename
+    return 'notes.txt'
 
 def menu(notes):
     while True:
@@ -131,7 +123,10 @@ def menu(notes):
             3. Обновить заметку
             4. Удалить заметку
             5. Найти заметки
-            6. Выйти из программы
+            6. Сохранить заметки в файл
+            7. Добавить заметки в файл
+            8. Загрузить заметки из файла
+            9. Выйти из программы
             """)
         choice = input("Ваш выбор: ")
         if choice == "1":
@@ -152,6 +147,12 @@ def menu(notes):
             found_notes = search_notes(notes, keyword, status)
             display_notes(found_notes)
         elif choice == "6":
+            save_notes_to_file(notes, input_filename())
+        elif choice == "7":
+            append_notes_to_file(notes, input_filename())
+        elif choice == "8":
+            notes = load_notes_from_file(input_filename())
+        elif choice == "9":
             print("Программа завершена. Спасибо за использование!")
             break
         else:

@@ -1,5 +1,6 @@
 # Функции для работы с файлами.
 import json
+from utils import generate_unique_id
 
 def save_notes_to_file(notes, filename):
     try:
@@ -48,6 +49,7 @@ def load_notes_from_file(filename):
             note = {}
         else:
             note[repl[line[0]]] = line[1]
+            note['uuid'] = generate_unique_id()
     return notes
 
 def append_notes_to_file(notes, filename):
@@ -65,3 +67,9 @@ def save_notes_json(notes, filename):
     with open(filename, 'w', encoding='utf-8') as file:
         json.dump(notes, file, indent=4, ensure_ascii=False)
 
+def load_notes_json(filename):
+    try:
+        with open(filename, encoding='utf-8') as file:
+            return json.load(file)
+    except:
+        return []
