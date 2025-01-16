@@ -49,7 +49,7 @@ def load_notes_from_file(filename):
             note = {}
         else:
             note[repl[line[0]]] = line[1]
-            note['uuid'] = generate_unique_id()
+#            note['uuid'] = generate_unique_id()
     return notes
 
 def append_notes_to_file(notes, filename):
