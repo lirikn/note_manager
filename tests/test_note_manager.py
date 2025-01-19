@@ -32,6 +32,10 @@ class TestNoteManager(unittest.TestCase):
     def test_display_notes(self):
         display_notes(notes)
 
+    def test_generate_unique_id(self):
+        uuid = generate_unique_id()
+        print(uuid)
+
 if __name__ == '__main__':
 
     unittest.main()
