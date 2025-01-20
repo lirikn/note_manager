@@ -6,6 +6,7 @@ def search_notes(notes, keyword='', status=''):
         for note in notes:
             if [x for x in ('username', 'title', 'content') if keyword.lower() in note[x].lower()]:
                 ret_notes.append(note)
+#!!! Поиск по статусу будет из найденных по ключевому слову !!!
         notes = ret_notes
     if status:
         ret_notes = []

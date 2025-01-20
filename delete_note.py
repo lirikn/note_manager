@@ -8,8 +8,8 @@ notes = [{'name': 'Алексей',
 
 def output_notes(text):
     print(text)
-    for note in notes:
-        print(f'{notes.index(note)+1}. Имя:', note['name'])
+    for i, note in enumerate(notes, 1):
+        print(f'{i}. Имя:', note['name'])
         print('   Заголовок:', note['title'])
         print('   Описание:', note['content'])
 
@@ -23,7 +23,7 @@ def input_check(text):
 output_notes('Текущие заметки:')
 deleted = False
 req = input_check('имя пользователя или заголовок для удаления заметки')
-for note in notes:
+for note in notes[:]:
     if req.lower() == note['title'].lower() or req == note['name']:
         notes.remove(note)
         deleted = True
