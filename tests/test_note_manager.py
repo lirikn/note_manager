@@ -37,5 +37,4 @@ class TestNoteManager(unittest.TestCase):
         print(uuid)
 
 if __name__ == '__main__':
-
     unittest.main()

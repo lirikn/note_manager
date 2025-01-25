@@ -1,22 +1,8 @@
+# Операции с базой данных notes
 import sqlite3
+from database.setup_database import *
 
-def create_note_db(db_path):
-    connection = sqlite3.connect(db_path)
-    cursor = connection.cursor()
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS notes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT NOT NULL,
-            title TEXT NOT NULL,
-            content TEXT NOT NULL,
-            status TEXT NOT NULL,
-            created_date TEXT NOT NULL,
-            issue_date TEXT NOT NULL
-        );
-    """)
-    connection.commit()
-    connection.close()
-
+# Сохраняет заметку в таблицу notes
 def save_note_to_db(note, db_path):
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
@@ -35,6 +21,7 @@ def save_note_to_db(note, db_path):
     connection.commit()
     connection.close()
 
+# Загрузка всех заметок
 def load_notes_from_db(db_path):
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
@@ -54,6 +41,7 @@ def load_notes_from_db(db_path):
     connection.close()
     return notes
 
+# Удаление заметок
 def delete_note_from_db(note_id, db_path):
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
@@ -61,6 +49,19 @@ def delete_note_from_db(note_id, db_path):
     connection.commit()
     connection.close()
 
+# Обновления заметок
+def update_note_in_db(note_id, updates, db_path):
+    connection = sqlite3.connect(db_path)
+    cursor = connection.cursor()
+    cursor.execute("""
+        UPDATE notes
+        SET title = ?, content = ?, status = ?, issue_date = ?
+        WHERE id = ?;
+    """, (updates['title'], updates['content'], updates['status'], updates['issue_date'], note_id))
+    connection.commit()
+    connection.close()
+
+# Поиск заметок
 def search_notes_by_keyword(keyword, db_path):
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
@@ -82,13 +83,11 @@ def search_notes_by_keyword(keyword, db_path):
         } for row in rows
     ]
 
+# Фильтрация заметок
 def filter_notes_by_status(status, db_path):
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
-    cursor.execute(
-        """SELECT * FROM notes WHERE status = ?;""",
-        status
-    )
+    cursor.execute("SELECT * FROM notes WHERE status = ?;",(status,))
     rows = cursor.fetchall()
     connection.close()
     return [{
@@ -114,5 +113,5 @@ if __name__ == '__main__':
         'issue_date': '13-01-2025'
     }
     save_note_to_db(note, 'notes.db')
-    print(load_notes_from_db('notes.db'))
+    print(filter_notes_by_status('в процессе', 'notes.db'))
     delete_note_from_db(1, 'notes.db')
