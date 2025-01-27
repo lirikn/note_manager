@@ -46,7 +46,7 @@ class TestNoteManager(unittest.TestCase):
     def test5_delete_note_from_db(self):
         delete_note_from_db(id_, 'notes.db')
         loaded_notes = load_notes_from_db('notes.db')
-        self.assertFalse([x for x in loaded_notes if x['id'] == 1])
+        self.assertFalse([x for x in loaded_notes if x['id'] == id_])
 
 if __name__ == '__main__':
     unittest.main()
